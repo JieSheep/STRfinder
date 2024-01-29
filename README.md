@@ -1,8 +1,6 @@
 # STRfinder
 A bioinformatic tool to detect and genotype STRs;
 
-# Enviroment Requirements
-
 # Installation
 STRfinder has been compiled into binary file, you can download and run it directory;
 
@@ -81,4 +79,18 @@ STRfinder --working_path <your OUT Dir> \
 - target_bed: equals to the STR_loci.bed in the Config file Preparation section(required);
 - tools_dir: equals to the STR_Tools directory path in the Tools Requirement section(required);
 
-
+# Output
+The most important output file is sample_genotypes.csv which contains the genotyping results for STRs markers. Its format goes as,
+|STR_marker|STR_position|STR_motif|STR_genotype_structure|STR_genotype|STR_core_sequence|Allele_coverage|Alleles_ratio|Reads Distrubution(consensused)|STR_depth|Full_seq|
+|----------|------------|---------|----------------------|------------|-----------------|---------------|-------------|-------------------------------|---------|--------|
+|D7S820|chr7:84160226-84160277|[TATC]n|[TATC]8,[TATC]11|8,11|TATCTATCTATCTATCTATCTATCTATCTATC,TATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC|82.4%|99.8%|7:0,7.1:0,7.2:0,7.3:0,8:150,8.1:0,8.2:0,8.3:0,9:0,9.1:0,9.2:0,9.3:0,10:0,10.1:0,10.2:0,10.3:0,11:200,11.1:0,11.2:0,11.3:0,12:0|3434|5'aaaaaaactatcaatctgtc-TATCTATCTATCTATCTATCTATCTATCTATC-gttagttcgttctaaactat3',5'aaaaaaactatcaatctgtc-TATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC-gttagttcgttctaaactat3'|
+- STR_marker: Name of STRs marker;
+- STR_position: Position of STRs marker, formatted in "chr:start-end", the coordinate information is the same with ones in STR_site.txt config file;
+- STR_motif: Motif structure of STRs marker, it's the same with the value in STR_site.txt config file;
+- STR_genotype_structure: STR core region sequence formatted in the motif structure obtained from STR finder for the sample's STR marker;
+- STR_genotypes: STR genotype result (repeat numaber) of marker; if the value is "-", it means the marker cannot be genotyped for low depth or genotype error risk;
+- STR_core_sequence: STR core region sequence obtained from STRfinder for the sample's STR marker;
+- Allele_coverage: Ratio of reads contributes to the alleles to total reads covered the STR marker;
+- Alleles_ratio: Ratio of reads contributes to two alleles, allele1/allele2;for haploidy markers, this value will be "-";
+- Reads Distribution(consensused): The consensused reads distribution for final genotyped alleles;
+- Full_seq: Sequence is composed of 5'flanking -STR repeat core region-3'flanking. The flanking sequence is in lowercase, while the repeat core region is in uppercase; 
