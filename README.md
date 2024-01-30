@@ -1,8 +1,8 @@
 # STRfinder
-A bioinformatics tool to detect and genotype STRs;
+A bioinformatics tool to detect and genotype STRs.
 
 # Installation
-STRfinder has been compiled into binary file, you can download and run it directly;
+STRfinder has been compiled into binary file, you can download it [here](https://drive.google.com/file/d/1NLPGfiwpx9Ok7wcZgPbI-j-1dR0jyZoy/view?usp=drive_link) and run it directly.
 
 # Config file preparation
 Before running STRfinder to type STRs markers, you need to prepare some config files containing certain information of STRs markers you are interested in. These config files don't need to be changed until you change your STR panel.  
