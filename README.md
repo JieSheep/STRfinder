@@ -13,17 +13,17 @@ Before running STRfinder to type STRs markers, you need to prepare some config f
 |---|-----|---|------|----------------|------|----------------------|------|--------------------|--------------------|--------|
 |chr1|230769616|230769683|4|17|D1S1656|\[CCTA\]_n \[TCTA\]_n|+|TTAAACACACACACACA|CATCACACAGTTGAC|1|
 - Seprator in the file is TAB;
-- Chr: chromosome id;
-- Start: the start position(1-base coordinate) of STR core repeat region for the related STR marker;
-- End: the end position(1-base coordinate) of STR core repeat region for the related STR marker;
-- Period: additional stage information in ISFG for the marker, the value is not used in STRfinder ;if the information is not available, you can fill in "0" here；
-- Reference allele: repeat number of the STR marker in human reference genome, the value is not used in STRfinder;if the information is not available, you can fill in "0" here；
-- Marker：name of STR marker，please only include letter/number/underline in the name, space or any other special characters may raise running error;
-- STR sequence structure: repeat motif of the STR marker，the sequence must be from forward strand of reference genome;
-- Strand: please enter "+"; 
-- 5'Flanking sequence: the 5'flank sequence of STR marker; value in this file in not used in STRfinder, you can also jsut fill in 'NA' here;
-- 3'Flanking sequence: the 3'flank sequence of STR marker; value in this file is not used in STRfinder, you can also jsut fill in 'NA' here;
-- STR_type: the value indicates the ploidy of STR marker; if the marker is diploidy, please fill in "1" here; if the marker is haploidy, please fill in "2" here;
+- **Chr**: chromosome id;
+- **Start**: the start position(1-base coordinate) of STR core repeat region for the related STR marker;
+- **End**: the end position(1-base coordinate) of STR core repeat region for the related STR marker;
+- **Period**: additional stage information in ISFG for the marker, the value is not used in STRfinder ;if the information is not available, you can fill in "0" here；
+- **Reference allele**: repeat number of the STR marker in human reference genome, the value is not used in STRfinder;if the information is not available, you can fill in "0" here；
+- **Marker**：name of STR marker，please only include letter/number/underline in the name, space or any other special characters may raise running error;
+- **STR sequence structure**: repeat motif of the STR marker，the sequence must be from forward strand of reference genome;
+- **Strand**: please enter "+"; 
+- **5'Flanking sequence**: the 5'flank sequence of STR marker; value in this file in not used in STRfinder, you can also jsut fill in 'NA' here;
+- **3'Flanking sequence**: the 3'flank sequence of STR marker; value in this file is not used in STRfinder, you can also jsut fill in 'NA' here;
+- **STR_type**: the value indicates the ploidy of STR marker; if the marker is diploidy, please fill in "1" here; if the marker is haploidy, please fill in "2" here;
 
 **2. STRs_loci.bed**  
 <a name="anchor2"></a>
@@ -78,32 +78,32 @@ STRfinder --working_path <your OUT Dir> \
        --target_bed <STR_target_bed> \
        --tools_dir <Tools_Dir> \
 ```
-- working_path: your output diretory(required);
-- fastq: your input fastq file path(required);
-- sample: your sample name(required);
-- STR_ref_bed: equals to the [STR_site.txt](#anchor1) file in Config file Preparation section(required)；
-- STR_flank_ref_dir: equals to the dir([STR_flank_fasta](#anchor4)) geneated in the part5 section of the former Config file Preparation part(required);
-- ref: genome reference fasta file or minimap2 index file(required);
-- reads_threashold: the lowest original depth of each STRs markers; Markers with orginal depth lower than this value won't be genotyped in the pipeline, the final typing result of relative markers will be "-";default is 100;
-- num_threads：threads number used in minimap2 alignment;default is 20;
-- num_process: process number used in the STRs markers genotyping by STRfinder; default is 10;
-- primer_bed: equals to the [STR_primers.bed](#anchor2) in the Config file Preparation section(required);
-- target_bed: equals to the [STR_loci.bed](#anchor3) in the Config file Preparation section(required);
-- tools_dir: equals to the [STR_Tools](#anchor_tool) directory path in the Tools Requirement section(required);
-- id_trans: equals to the [ID correspondence file](#anchor_id) path in the Config file Preparation section(required);
+- **working_path**: your output diretory(required);
+- **fastq**: your input fastq file path(required);
+- **sample**: your sample name(required);
+- **STR_ref_bed**: equals to the [STR_site.txt](#anchor1) file in Config file Preparation section(required)；
+- **STR_flank_ref_dir**: equals to the dir([STR_flank_fasta](#anchor4)) geneated in the part5 section of the former Config file Preparation part(required);
+- **ref**: genome reference fasta file or minimap2 index file(required);
+- **reads_threashold**: the lowest original depth of each STRs markers; Markers with orginal depth lower than this value won't be genotyped in the pipeline, the final typing result of relative markers will be "-";default is 100;
+- **num_threads**：threads number used in minimap2 alignment;default is 20;
+- **num_process**: process number used in the STRs markers genotyping by STRfinder; default is 10;
+- **primer_bed**: equals to the [STR_primers.bed](#anchor2) in the Config file Preparation section(required);
+- **target_bed**: equals to the [STR_loci.bed](#anchor3) in the Config file Preparation section(required);
+- **tools_dir**: equals to the [STR_Tools](#anchor_tool) directory path in the Tools Requirement section(required);
+- **id_trans**: equals to the [ID correspondence file](#anchor_id) path in the Config file Preparation section(required);
 
 # Output
 The most important output file is sample_genotypes.csv which contains the genotyping results for STRs markers. Its format goes as,
 |STR_marker|STR_position|STR_motif|STR_genotype_structure|STR_genotype|STR_core_seq|Allele_coverage|Alleles_ratio|Reads_Distrubution(consensused)|STR_depth|Full_seq|
 |----------|------------|---------|----------------------|------------|-----------------|---------------|-------------|-------------------------------|---------|--------|
 |D7S820|chr7:84160226-84160277|[TATC]n|[TATC]8,[TATC]11|8,11|TATCTATCTATCTATCTATCTATCTATCTATC,TATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC|82.4%|99.8%|7:0,7.1:0,7.2:0,7.3:0,8:150,8.1:0,8.2:0,8.3:0,9:0,9.1:0,9.2:0,9.3:0,10:0,10.1:0,10.2:0,10.3:0,11:200,11.1:0,11.2:0,11.3:0,12:0|3434|5'aaaaaaactatcaatctgtc-TATCTATCTATCTATCTATCTATCTATCTATC-gttagttcgttctaaactat3',5'aaaaaaactatcaatctgtc-TATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC-gttagttcgttctaaactat3'|
-- STR_marker: Name of STRs marker;
-- STR_position: Position of STRs marker, formatted in "chr:start-end", the coordinate information is the same with ones in STR_site.txt config file;
-- STR_motif: Motif structure of STRs marker, it's the same with the value in STR_site.txt config file;
-- STR_genotype_structure: STR core region sequence formatted in the motif structure obtained from STR finder for the sample's STR marker;
-- STR_genotypes: STR genotype result (repeat numaber) of marker; if the value is "-", it means the marker cannot be genotyped for low depth or genotype error risk;
-- STR_core_seq: STR core region sequence obtained from STRfinder for the sample's STR marker;
-- Allele_coverage: Ratio of reads contributes to the alleles to total reads covered the STR marker;
-- Alleles_ratio: Ratio of reads contributes to two alleles, allele1/allele2;for haploidy markers, this value will be "-";
-- Reads Distribution(consensused): The consensused reads distribution for final genotyped alleles;
-- Full_seq: Sequence is composed of 5'flanking -STR repeat core region-3'flanking. The flanking sequence is in lowercase, while the repeat core region is in uppercase; 
+- **STR_marker**: Name of STRs marker;
+- **STR_position**: Position of STRs marker, formatted in "chr:start-end", the coordinate information is the same with ones in STR_site.txt config file;
+- **STR_motif**: Motif structure of STRs marker, it's the same with the value in STR_site.txt config file;
+- **STR_genotype_structure**: STR core region sequence formatted in the motif structure obtained from STR finder for the sample's STR marker;
+- **STR_genotypes**: STR genotype result (repeat numaber) of marker; if the value is "-", it means the marker cannot be genotyped for low depth or genotype error risk;
+- **STR_core_seq**: STR core region sequence obtained from STRfinder for the sample's STR marker;
+- **Allele_coverage**: Ratio of reads contributes to the alleles to total reads covered the STR marker;
+- **Alleles_ratio**: Ratio of reads contributes to two alleles, allele1/allele2;for haploidy markers, this value will be "-";
+- **Reads Distribution(consensused)**: The consensused reads distribution for final genotyped alleles;
+- **Full_seq**: Sequence is composed of 5'flanking -STR repeat core region-3'flanking. The flanking sequence is in lowercase, while the repeat core region is in uppercase; 
