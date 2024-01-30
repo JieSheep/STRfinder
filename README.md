@@ -1,15 +1,17 @@
 # STRfinder
-A bioinformatic tool to detect and genotype STRs;
+A bioinformatics tool to detect and genotype STRs;
 
 # Installation
 STRfinder has been compiled into binary file, you can download and run it directory;
 
 # Config file preparation
-Before running STRfinder to type STRs markers, you need to prepare some config files containing certain information of STRs markers you are interested in. These config files don't need to be changed until you change your STR panel.
-1) STRs_site.txt
-   |Chr|Start|End|Period|Reference allele|Marker|STR sequence structure|Strand|5' Flanking sequence|3' Flanking sequence|STR_type|
-   |---|-----|---|------|----------------|------|----------------------|------|--------------------|--------------------|--------|
-   |chr1|230769616|230769683|4|17|D1S1656|\[CCTA\]_n \[TCTA\]_n|+|TTAAACACACACACACA|CATCACACAGTTGAC|1|
+Before running STRfinder to type STRs markers, you need to prepare some config files containing certain information of STRs markers you are interested in. These config files don't need to be changed until you change your STR panel.  
+
+**1. STRs_site.txt**
+<a name="anchor1"></a>
+|Chr|Start|End|Period|Reference allele|Marker|STR sequence structure|Strand|5' Flanking sequence|3' Flanking sequence|STR_type|
+|---|-----|---|------|----------------|------|----------------------|------|--------------------|--------------------|--------|
+|chr1|230769616|230769683|4|17|D1S1656|\[CCTA\]_n \[TCTA\]_n|+|TTAAACACACACACACA|CATCACACAGTTGAC|1|
 - Seprator in the file is TAB;
 - Chr: chromosome id;
 - Start: the start position(1-base coordinate) of STR core repeat region for the related STR marker;
@@ -22,21 +24,29 @@ Before running STRfinder to type STRs markers, you need to prepare some config f
 - 5'Flanking sequence: the 5'flank sequence of STR marker; value in this file in not used in STRfinder, you can also jsut fill in 'NA' here;
 - 3'Flanking sequence: the 3'flank sequence of STR marker; value in this file is not used in STRfinder, you can also jsut fill in 'NA' here;
 - STR_type: the value indicates the ploidy of STR marker; if the marker is diploidy, please fill in "1" here; if the marker is haploidy, please fill in "2" here;
-3) STRs_loci.bed
-A bed file contains the chr/star/end information of core repeat region for each STR markers in your panel. This file is used to evaluate how many reads and bases covers you STR core repeat region. If you don't pay attention to this information, you can provide any existed BED file.
-4) STR_primers.bed
-A bed file contains the chr/start/end information of your amplified/probe_covered region for each STR markers in your panel. This file is used to evaluate how many reads and bases covers your amplified STRs regions. If you don't pay attention to this information, you can provide any existed BED file.
-5) flank sequence in fasta format for each STRs marker
+
+**2. STRs_loci.bed**  
+<a name="anchor2"></a>
+A bed file contains the chr/star/end information of core repeat region for each STR markers in your panel. This file is used to evaluate how many reads and bases covers you STR core repeat region. If you don't pay attention to this information, you can provide any existed BED file.  
+
+**3.  STR_primers.bed**  
+<a name="anchor3"></a>
+A bed file contains the chr/start/end information of your amplified/probe_covered region for each STR markers in your panel. This file is used to evaluate how many reads and bases covers your amplified STRs regions. If you don't pay attention to this information, you can provide any existed BED file.  
+
+**4.  flank sequence in fasta format for each STRs marker**  
+<a name="anchor4"></a>
 For each STR marker, you must prepare a fasta file contains flank sequences. The fasta file must be named as marker.fa with the character of marker must be consistent with marker name in the file STRs_site.txt. Content of the fasta file goes as follow,
 
 
-> DYS460_p5  
+> \>DYS460_p5  
 > GTATTTGTCTATTAT  
-> DYS460_p7  
+> \>DYS460_p7  
 > GTCAGAGGTGTCAGA  
 
-5'flank sequence of a STR marker must be named as marker_p5, 3'flank sequence of a STR marker must be named as marker_p7, marker is the name of the marker which is consistent with the marker.fa file. The length of flanking sequence is up to you, the recommended value is above 15bp, while the base sequence must be concordant with the forward strand of reference genome. Once the fasta files for each STR marker  are prepared, all the marker.fa file need to be placed in the same folder.
-6) ID correspondence file
+5'flank sequence of a STR marker must be named as marker_p5, 3'flank sequence of a STR marker must be named as marker_p7, marker is the name of the marker which is consistent with the marker.fa file. The length of flanking sequence is up to you, the recommended value is above 15bp, while the base sequence must be concordant with the forward strand of reference genome. Once the fasta files for each STR marker  are prepared, all the marker.fa file need to be placed in the same folder.  
+
+**5. ID correspondence file**  
+<a name="anchor_id"></a>
 Sometimes STRs markers' name typed in the previous config file may not satisfy the practical application, in order to generate customer satisfied genotype STRs marker names in the final result, a file indicates the ID correspondence is necessary. The ID correspondence file involves two columns separated by TAB, the first column is the STRs markers name used in the previous config file, and the second column is your expected output STRs markers name.
 |#Used ID|Final ID|
 |--------|--------|
@@ -45,6 +55,7 @@ Sometimes STRs markers' name typed in the previous config file may not satisfy t
 |DYS459|DYS459 a/b|
  
 # Tools Requirements
+<a name="anchor_tool"></a>
 STRfinder has applied several tools to conduct QC/Alignment/Sampling/Consensus. These binary executable tools(bamdst/minimap2/samtools/seqkit/spoa) must be prepared ready and placed in the same directory before running STRfinder. For example, you have built a directory named STR_Tools, the directory will contains files including bamdst/minimap2/samtools/seqkit/spoa binary executable file.
 - [bamdst](https://github.com/shiquan/bamdst)
 - [minimap2](https://github.com/lh3/minimap2)
@@ -70,15 +81,16 @@ STRfinder --working_path <your OUT Dir> \
 - working_path: your output diretory(required);
 - fastq: your input fastq file path(required);
 - sample: your sample name(required);
-- STR_ref_bed: equals to the STR_site.txt file in Config file Preparation section(required)；
-- STR_flank_ref_dir: equals to the dir geneated in the part5 section of the former Config file Preparation part(required);
+- STR_ref_bed: equals to the [STR_site.txt](#anchor1) file in Config file Preparation section(required)；
+- STR_flank_ref_dir: equals to the dir([STR_flank_fasta](#anchor4)) geneated in the part5 section of the former Config file Preparation part(required);
 - ref: genome reference fasta file or minimap2 index file(required);
 - reads_threashold: the lowest original depth of each STRs markers; Markers with orginal depth lower than this value won't be genotyped in the pipeline, the final typing result of relative markers will be "-";default is 100;
 - num_threads：threads number used in minimap2 alignment;default is 20;
 - num_process: process number used in the STRs markers genotyping by STRfinder; default is 10;
-- primer_bed: equals to the STR_primers.bed in the Config file Preparation section(required);
-- target_bed: equals to the STR_loci.bed in the Config file Preparation section(required);
-- tools_dir: equals to the STR_Tools directory path in the Tools Requirement section(required);
+- primer_bed: equals to the [STR_primers.bed](#anchor2) in the Config file Preparation section(required);
+- target_bed: equals to the [STR_loci.bed](#anchor3) in the Config file Preparation section(required);
+- tools_dir: equals to the [STR_Tools](#anchor_tool) directory path in the Tools Requirement section(required);
+- id_trans: equals to the [ID correspondence file](#anchor_id) path in the Config file Preparation section(required);
 
 # Output
 The most important output file is sample_genotypes.csv which contains the genotyping results for STRs markers. Its format goes as,
