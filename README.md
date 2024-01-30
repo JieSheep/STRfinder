@@ -29,10 +29,11 @@ A bed file contains the chr/start/end information of your amplified/probe_covere
 5) flank sequence in fasta format for each STRs marker
 For each STR marker, you must prepare a fasta file contains flank sequences. The fasta file must be named as marker.fa with the character of marker must be consistent with marker name in the file STRs_site.txt. Content of the fasta file goes as follow,
 
->DYS460_p5
-GTATTTGTCTATTAT
->DYS460_p7
-GTCAGAGGTGTCAGA
+
+> DYS460_p5  
+> GTATTTGTCTATTAT  
+> DYS460_p7  
+> GTCAGAGGTGTCAGA  
 
 5'flank sequence of a STR marker must be named as marker_p5, 3'flank sequence of a STR marker must be named as marker_p7, marker is the name of the marker which is consistent with the marker.fa file. The length of flanking sequence is up to you, the recommended value is above 15bp, while the base sequence must be concordant with the forward strand of reference genome. Once the fasta files for each STR marker  are prepared, all the marker.fa file need to be placed in the same folder.
 6) ID correspondence file
@@ -45,11 +46,11 @@ Sometimes STRs markers' name typed in the previous config file may not satisfy t
  
 # Tools Requirements
 STRfinder has applied several tools to conduct QC/Alignment/Sampling/Consensus. These binary executable tools(bamdst/minimap2/samtools/seqkit/spoa) must be prepared ready and placed in the same directory before running STRfinder. For example, you have built a directory named STR_Tools, the directory will contains files including bamdst/minimap2/samtools/seqkit/spoa binary executable file.
-- bamdst
-- minimap2
-- samtools
-- seqkit
-- spoa
+- [bamdst](https://github.com/shiquan/bamdst)
+- [minimap2](https://github.com/lh3/minimap2)
+- [samtools](https://github.com/samtools/samtools)
+- [seqkit](https://github.com/shenwei356/seqkit)
+- [spoa](https://github.com/rvaser/spoa)
   
 # Usage
 ```
@@ -81,7 +82,7 @@ STRfinder --working_path <your OUT Dir> \
 
 # Output
 The most important output file is sample_genotypes.csv which contains the genotyping results for STRs markers. Its format goes as,
-|STR_marker|STR_position|STR_motif|STR_genotype_structure|STR_genotype|STR_core_sequence|Allele_coverage|Alleles_ratio|Reads Distrubution(consensused)|STR_depth|Full_seq|
+|STR_marker|STR_position|STR_motif|STR_genotype_structure|STR_genotype|STR_core_seq|Allele_coverage|Alleles_ratio|Reads_Distrubution(consensused)|STR_depth|Full_seq|
 |----------|------------|---------|----------------------|------------|-----------------|---------------|-------------|-------------------------------|---------|--------|
 |D7S820|chr7:84160226-84160277|[TATC]n|[TATC]8,[TATC]11|8,11|TATCTATCTATCTATCTATCTATCTATCTATC,TATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC|82.4%|99.8%|7:0,7.1:0,7.2:0,7.3:0,8:150,8.1:0,8.2:0,8.3:0,9:0,9.1:0,9.2:0,9.3:0,10:0,10.1:0,10.2:0,10.3:0,11:200,11.1:0,11.2:0,11.3:0,12:0|3434|5'aaaaaaactatcaatctgtc-TATCTATCTATCTATCTATCTATCTATCTATC-gttagttcgttctaaactat3',5'aaaaaaactatcaatctgtc-TATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC-gttagttcgttctaaactat3'|
 - STR_marker: Name of STRs marker;
@@ -89,7 +90,7 @@ The most important output file is sample_genotypes.csv which contains the genoty
 - STR_motif: Motif structure of STRs marker, it's the same with the value in STR_site.txt config file;
 - STR_genotype_structure: STR core region sequence formatted in the motif structure obtained from STR finder for the sample's STR marker;
 - STR_genotypes: STR genotype result (repeat numaber) of marker; if the value is "-", it means the marker cannot be genotyped for low depth or genotype error risk;
-- STR_core_sequence: STR core region sequence obtained from STRfinder for the sample's STR marker;
+- STR_core_seq: STR core region sequence obtained from STRfinder for the sample's STR marker;
 - Allele_coverage: Ratio of reads contributes to the alleles to total reads covered the STR marker;
 - Alleles_ratio: Ratio of reads contributes to two alleles, allele1/allele2;for haploidy markers, this value will be "-";
 - Reads Distribution(consensused): The consensused reads distribution for final genotyped alleles;
